@@ -1,4 +1,4 @@
-package com.lunar.dev.gelos.common;
+package com.lunardev.gelos.common;
 
 import lombok.Getter;
 import lombok.Setter;

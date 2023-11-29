@@ -1,4 +1,4 @@
-package com.lunar.dev.gelos.common;
+package com.lunardev.gelos.common;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
