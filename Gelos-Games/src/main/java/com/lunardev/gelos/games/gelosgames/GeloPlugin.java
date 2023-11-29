@@ -1,4 +1,4 @@
-package com.lunar.dev.gelos.games.gelosgames;
+package com.lunardev.gelos.games.gelosgames;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
