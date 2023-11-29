@@ -2,16 +2,25 @@ package com.lunardev.gelos.common;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class CommonPlugin extends JavaPlugin {
+public abstract class CommonPlugin extends JavaPlugin {
 
     @Override
-    public void onEnable() {
+    public final void onEnable() {
         // Plugin startup logic
 
+        // TODO using reflection get auto register annotations and register them
+
+        onStart();
     }
 
     @Override
-    public void onDisable() {
+    public final void onDisable() {
         // Plugin shutdown logic
+        onShutdown();
     }
+
+    public abstract void onStart();
+
+    public void onShutdown() {}
+
 }
