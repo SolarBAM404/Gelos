@@ -34,7 +34,7 @@ public class Common {
      * @param message the message to log
      */
     public static void log(String message) {
-        Bukkit.getConsoleSender().sendMessage(PREFIX + message);
+        Bukkit.getConsoleSender().sendMessage(prefix + message);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Common {
      * @param args    the arguments to format the message with
      */
     public static void log(String message, Object... args) {
-        Bukkit.getConsoleSender().sendMessage(PREFIX + String.format(message, args));
+        Bukkit.getConsoleSender().sendMessage(prefix + String.format(message, args));
     }
 
     /**
@@ -53,7 +53,7 @@ public class Common {
      * @param message the message to log
      */
     public static void logError(String message) {
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "&c" + message);
+        Bukkit.getConsoleSender().sendMessage(prefix + "&c" + message);
     }
 
     /**
@@ -63,7 +63,7 @@ public class Common {
      * @param args    the arguments to format the message with
      */
     public static void logError(String message, Object... args) {
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "&c" + String.format(message, args));
+        Bukkit.getConsoleSender().sendMessage(prefix + "&c" + String.format(message, args));
     }
 
     /**
@@ -72,7 +72,7 @@ public class Common {
      * @param message the message to log
      */
     public static void logWarning(String message) {
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "&e" + message);
+        Bukkit.getConsoleSender().sendMessage(prefix + "&e" + message);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Common {
      * @param args    the arguments to format the message with
      */
     public static void logWarning(String message, Object... args) {
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "&e" + String.format(message, args));
+        Bukkit.getConsoleSender().sendMessage(prefix + "&e" + String.format(message, args));
     }
 
 
