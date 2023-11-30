@@ -1,4 +1,4 @@
-name: Gelos-Games-Lib
+name: Gelos-Games
 version: '${project.version}'
-main: com.lunardev.gelos.games.gelosgames.GeloPlugin
+main: com.lunardev.gelos.gelosgames.GeloPlugin
 api-version: '1.20'
