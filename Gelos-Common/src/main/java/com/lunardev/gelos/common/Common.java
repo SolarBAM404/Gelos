@@ -28,6 +28,8 @@ public class Common {
     @Setter
     private static String warningColor = "&e";
 
+    private static String line = "&7&m-----------------------------------------------------";
+
     /**
      * Logs a message to the console
      *
@@ -66,6 +68,17 @@ public class Common {
         Bukkit.getConsoleSender().sendMessage(prefix + "&c" + String.format(message, args));
     }
 
+    public static void logError(Throwable t) {
+        Bukkit.getConsoleSender().sendMessage(line);
+        Bukkit.getConsoleSender().sendMessage(prefix + "&c" + t.getMessage());
+    }
+
+    public static void logError(Throwable t, String message) {
+        Bukkit.getConsoleSender().sendMessage(line);
+        Bukkit.getConsoleSender().sendMessage(prefix + "&c" + message);
+        Bukkit.getConsoleSender().sendMessage(prefix + "&c" + t.getMessage());
+    }
+
     /**
      * Logs a warning to the console
      *
@@ -84,7 +97,6 @@ public class Common {
     public static void logWarning(String message, Object... args) {
         Bukkit.getConsoleSender().sendMessage(prefix + "&e" + String.format(message, args));
     }
-
 
 
 }
