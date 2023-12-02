@@ -1,5 +1,7 @@
 package com.lunardev.gelos.gelosgames.events;
 
+import com.lunardev.gelos.gelosgames.managers.GameManager;
+import lombok.Getter;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -11,6 +13,13 @@ import org.jetbrains.annotations.NotNull;
 public class GameStartTimerEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
+
+    @Getter
+    private GameManager gameManager;
+
+    public GameStartTimerEvent(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
 
     @Override
     public @NotNull HandlerList getHandlers() {
