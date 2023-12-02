@@ -1,0 +1,58 @@
+package com.lunardev.gelos.gelosgames.managers;
+
+import com.lunardev.gelos.gelosgames.events.GameEndEvent;
+import com.lunardev.gelos.gelosgames.events.GameStartEvent;
+import com.lunardev.gelos.gelosgames.events.GameStartTimerEvent;
+import com.lunardev.gelos.gelosgames.events.GameStartTimerFinishEvent;
+import com.lunardev.gelos.gelosgames.timers.GameEndTimer;
+import com.lunardev.gelos.gelosgames.timers.GameStartTimer;
+import lombok.AccessLevel;
+import lombok.Getter;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+
+@Getter
+public class GameManager implements Listener {
+
+    private static GameManager instance;
+
+    @Getter(AccessLevel.NONE)
+    private JavaPlugin plugin;
+
+    private GameState state = GameState.WAITING;
+    private int startTimer = 30;
+    private int gameTimer = 60 * 5;
+    private int endTimer = 10;
+
+    public GameManager(JavaPlugin plugin) {
+        this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    public void startTimer() {
+        new GameStartTimerEvent(this).callEvent();
+        state = GameState.START_TIMER;
+    }
+
+    @EventHandler
+    public void onGameStartTimer(GameStartTimerEvent event) {
+        new GameStartTimer(plugin, this, startTimer).startTimer();
+    }
+
+    @EventHandler
+    public void onGameStartTimerFinish(GameStartTimerFinishEvent event) {
+        startGame();
+    }
+
+    @EventHandler
+    public void onGameEnd(GameEndEvent event) {
+        new GameEndTimer(plugin, this, endTimer).startTimer();
+        state = GameState.ENDED;
+    }
+
+    public void startGame() {
+        state = GameState.PLAYING;
+        new GameStartEvent(this).callEvent();
+    }
+}
