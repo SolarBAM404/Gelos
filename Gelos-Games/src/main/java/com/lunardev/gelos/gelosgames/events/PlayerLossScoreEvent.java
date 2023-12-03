@@ -7,7 +7,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * This event is called when the player has been teleported after the game has ended.
+ * This event is called when the player has loss some score points.
  */
 public class PlayerLossScoreEvent extends Event {
 
