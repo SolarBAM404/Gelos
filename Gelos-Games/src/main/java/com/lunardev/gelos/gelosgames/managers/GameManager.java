@@ -23,10 +23,13 @@ public class GameManager implements Listener {
     private final JavaPlugin plugin;
 
     private GameState state = GameState.WAITING;
-    private PlayerManager playerManager = new PlayerManager();
+    private final PlayerManager playerManager = new PlayerManager();
 
     @Setter
     private boolean joinOnConnect = false;
+
+    @Setter(AccessLevel.PROTECTED)
+    private String bypassPermission = "games.join.bypass";
 
     @Setter
     private int startTimer = 30;
@@ -68,7 +71,9 @@ public class GameManager implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (joinOnConnect) {
+        if (joinOnConnect
+                && state == GameState.WAITING
+                && !event.getPlayer().hasPermission(bypassPermission)) {
             playerManager.addPlayer(event.getPlayer());
         }
     }
