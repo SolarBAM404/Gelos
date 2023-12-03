@@ -67,6 +67,7 @@ public class GameManager implements Listener {
     public void onGameEnd(GameEndEvent event) {
         new GameEndTimer(plugin, this, endTimer).startTimer();
         state = GameState.ENDED;
+        playerManager.clearPlayers();
     }
 
     @EventHandler
