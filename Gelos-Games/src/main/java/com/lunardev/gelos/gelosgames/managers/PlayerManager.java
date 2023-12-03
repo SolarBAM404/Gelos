@@ -103,6 +103,16 @@ public class PlayerManager {
         });
     }
 
+    public List<Player> sortPlayersByScore() {
+        List<Player> sortedPlayers = new ArrayList<>(players);
+        sortedPlayers.sort((player1, player2) -> {
+            int score1 = playerScores.get(player1.getUniqueId());
+            int score2 = playerScores.get(player2.getUniqueId());
+            return Integer.compare(score2, score1);
+        });
+        return sortedPlayers;
+    }
+
     public int size() {
         return players.size();
     }
