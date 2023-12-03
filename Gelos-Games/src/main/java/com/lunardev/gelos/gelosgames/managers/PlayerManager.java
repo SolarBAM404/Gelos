@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class PlayerManager {
 
     private List<Player> players = new ArrayList<>();
-    private Hashtable<UUID, Integer> playerScores = new Hashtable<>();
+    private final Hashtable<UUID, Integer> playerScores = new Hashtable<>();
 
     public PlayerManager() {
     }
@@ -100,5 +100,13 @@ public class PlayerManager {
         playerScores.forEach((uuid, score) -> {
             playerScores.put(uuid, 0);
         });
+    }
+
+    public int size() {
+        return players.size();
+    }
+
+    public boolean isEmpty() {
+        return players.isEmpty();
     }
 }
