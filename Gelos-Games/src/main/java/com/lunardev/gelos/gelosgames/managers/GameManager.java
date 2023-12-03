@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
@@ -22,7 +23,11 @@ public class GameManager implements Listener {
     private final JavaPlugin plugin;
 
     private GameState state = GameState.WAITING;
-    
+    private PlayerManager playerManager = new PlayerManager();
+
+    @Setter
+    private boolean joinOnConnect = false;
+
     @Setter
     private int startTimer = 30;
     @Setter
@@ -33,6 +38,11 @@ public class GameManager implements Listener {
     public GameManager(JavaPlugin plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    public void startGame() {
+        state = GameState.PLAYING;
+        new GameStartEvent(this).callEvent();
     }
 
     public void startTimer() {
@@ -56,8 +66,10 @@ public class GameManager implements Listener {
         state = GameState.ENDED;
     }
 
-    public void startGame() {
-        state = GameState.PLAYING;
-        new GameStartEvent(this).callEvent();
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        if (joinOnConnect) {
+            playerManager.addPlayer(event.getPlayer());
+        }
     }
 }
