@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Getter
 public class PlayerManager {
@@ -25,14 +26,48 @@ public class PlayerManager {
 
     public void addPlayer(Player player) {
         players.add(player);
+        playerScores.put(player.getUniqueId(), 0);
     }
 
     public void removePlayer(Player player) {
         players.remove(player);
+        playerScores.remove(player.getUniqueId());
     }
 
     public boolean containsPlayer(Player player) {
         return players.contains(player);
+    }
+
+    public boolean containsPlayer(UUID uuid) {
+        if (playerScores.containsKey(uuid)) {
+            return true;
+        }
+
+        AtomicBoolean contains = new AtomicBoolean(false);
+
+        players.forEach(player -> {
+            if (player.getUniqueId().equals(uuid)) {
+                contains.set(true);
+            }
+        });
+
+        return contains.get();
+    }
+
+    public boolean containsPlayer(String name) {
+        if (playerScores.containsKey(name)) {
+            return true;
+        }
+
+        AtomicBoolean contains = new AtomicBoolean(false);
+
+        players.forEach(player -> {
+            if (player.getName().equals(name)) {
+                contains.set(true);
+            }
+        });
+
+        return contains.get();
     }
 
     public void clearPlayers() {
@@ -59,5 +94,11 @@ public class PlayerManager {
 
     public void clearScores() {
         playerScores.clear();
+    }
+
+    public void resetScores() {
+        playerScores.forEach((uuid, score) -> {
+            playerScores.put(uuid, 0);
+        });
     }
 }
