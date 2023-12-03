@@ -72,6 +72,7 @@ public class PlayerManager {
 
     public void clearPlayers() {
         players.clear();
+        playerScores.clear();
     }
 
     public void addScore(Player player, int score) {
