@@ -8,6 +8,7 @@ import com.lunardev.gelos.gelosgames.timers.GameEndTimer;
 import com.lunardev.gelos.gelosgames.timers.GameStartTimer;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,11 +19,15 @@ public class GameManager implements Listener {
     private static GameManager instance;
 
     @Getter(AccessLevel.NONE)
-    private JavaPlugin plugin;
+    private final JavaPlugin plugin;
 
     private GameState state = GameState.WAITING;
+    
+    @Setter
     private int startTimer = 30;
+    @Setter
     private int gameTimer = 60 * 5;
+    @Setter
     private int endTimer = 10;
 
     public GameManager(JavaPlugin plugin) {
