@@ -18,10 +18,14 @@ public class PlayerGainedScoreEvent extends Event {
         this.player = player;
     }
 
-    private static final HandlerList handlers = new HandlerList();
+    private static final HandlerList HANDLER_LIST = new HandlerList();
+
+    public static HandlerList getHandlerList() {
+        return HANDLER_LIST;
+    }
 
     @Override
     public @NotNull HandlerList getHandlers() {
-        return handlers;
+        return HANDLER_LIST;
     }
 }

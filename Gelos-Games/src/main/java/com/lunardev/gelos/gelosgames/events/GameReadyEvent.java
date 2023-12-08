@@ -12,7 +12,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class GameReadyEvent extends Event {
 
-    private static final HandlerList handlers = new HandlerList();
+    private static final HandlerList HANDLER_LIST = new HandlerList();
+
+    public static HandlerList getHandlerList() {
+        return HANDLER_LIST;
+    }
 
     @Getter
     private GameManager gameManager;
@@ -23,6 +27,6 @@ public class GameReadyEvent extends Event {
 
     @Override
     public @NotNull HandlerList getHandlers() {
-        return handlers;
+        return HANDLER_LIST;
     }
 }
