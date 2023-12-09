@@ -12,13 +12,11 @@ import java.util.Random;
  * This class represents a cuboid region in a Minecraft world.
  * The region is defined by two points: pos1 and pos2.
  */
+@Getter
 public class CuboidRegion {
 
-    @Getter
-    private Location pos1;
-
-    @Getter
-    private Location pos2;
+    private final Location pos1;
+    private final Location pos2;
 
     /**
      * Constructs a new CuboidRegion with the given locations.
@@ -171,15 +169,17 @@ public class CuboidRegion {
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
 
+        map.put("world", pos1.getWorld().getName());
         map.put("pos1", LocationUtils.locationToString(pos1, false));
         map.put("pos2", LocationUtils.locationToString(pos2, false));
         return map;
     }
 
     public static CuboidRegion deserialize(Map<String, Object> map) {
+        String world = map.get("world").toString();
         return new CuboidRegion(
-                LocationUtils.stringToLocation((String) map.get("pos1")),
-                LocationUtils.stringToLocation((String) map.get("pos2"))
+                LocationUtils.stringToLocation(world + "," + map.get("pos1")),
+                LocationUtils.stringToLocation(world + "," + map.get("pos2"))
         );
     }
 
