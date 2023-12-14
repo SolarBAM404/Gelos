@@ -24,6 +24,14 @@ public class PlayerManager {
         this.players = players;
     }
 
+    public void sendMessages(String message) {
+        players.forEach(player -> player.sendMessage(message));
+    }
+
+    public void sendMessages(String message, String... args) {
+        players.forEach(player -> player.sendMessage(String.format(message, (Object) args)));
+    }
+
     public void addPlayer(Player player) {
         players.add(player);
         playerScores.put(player.getUniqueId(), 0);
