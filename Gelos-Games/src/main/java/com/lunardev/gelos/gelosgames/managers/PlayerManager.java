@@ -1,6 +1,8 @@
 package com.lunardev.gelos.gelosgames.managers;
 
 import com.lunardev.gelos.gelosgames.events.PlayerGainedScoreEvent;
+import com.lunardev.gelos.gelosgames.events.PlayerJoinedGameEvent;
+import com.lunardev.gelos.gelosgames.events.PlayerLeftGameEvent;
 import com.lunardev.gelos.gelosgames.events.PlayerLossScoreEvent;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -35,11 +37,13 @@ public class PlayerManager {
     public void addPlayer(Player player) {
         players.add(player);
         playerScores.put(player.getUniqueId(), 0);
+        new PlayerJoinedGameEvent(player).callEvent();
     }
 
     public void removePlayer(Player player) {
         players.remove(player);
         playerScores.remove(player.getUniqueId());
+        new PlayerLeftGameEvent(player).callEvent();
     }
 
     public boolean containsPlayer(Player player) {
