@@ -41,4 +41,27 @@ public class LocationUtils {
     public static World getWorld(String name) {
         return Bukkit.getWorld(name);
     }
+
+    public static boolean isBetween(Location pos1, Location pos2, Location location) {
+        int x1 = Math.min(pos1.getBlockX(), pos2.getBlockX());
+        int x2 = Math.max(pos1.getBlockX(), pos2.getBlockX());
+        int y1 = Math.min(pos1.getBlockY(), pos2.getBlockY());
+        int y2 = Math.max(pos1.getBlockY(), pos2.getBlockY());
+        int z1 = Math.min(pos1.getBlockZ(), pos2.getBlockZ());
+        int z2 = Math.max(pos1.getBlockZ(), pos2.getBlockZ());
+
+        return MathsUtils.isBetween(location.getBlockX(), x1, x2)
+                && MathsUtils.isBetween(location.getBlockY(), y1, y2)
+                && MathsUtils.isBetween(location.getBlockZ(), z1, z2);
+    }
+
+    public static boolean isBetweenXZ(Location pos1, Location pos2, Location location) {
+        int x1 = Math.min(pos1.getBlockX(), pos2.getBlockX());
+        int x2 = Math.max(pos1.getBlockX(), pos2.getBlockX());
+        int z1 = Math.min(pos1.getBlockZ(), pos2.getBlockZ());
+        int z2 = Math.max(pos1.getBlockZ(), pos2.getBlockZ());
+
+        return MathsUtils.isBetween(location.getBlockX(), x1, x2)
+                && MathsUtils.isBetween(location.getBlockZ(), z1, z2);
+    }
 }
