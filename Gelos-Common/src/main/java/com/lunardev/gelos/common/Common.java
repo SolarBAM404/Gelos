@@ -98,5 +98,28 @@ public class Common {
         Bukkit.getConsoleSender().sendMessage(prefix + "&e" + String.format(message, args));
     }
 
+    // Region: String Utils
 
+    /**
+     * Replaces {player} with the player's name
+     *
+     * @param message    the message to replace
+     * @param playerName the player to replace the message with
+     * @return the message with the player's name
+     */
+    public static String replacePlayer(String message, String playerName) {
+        return message.replace("{player}", playerName);
+    }
+
+
+    // Region: Command Utils
+
+    /**
+     * Dispatches a command as the console
+     *
+     * @param command the command to dispatch
+     */
+    public static void dispatchCommand(String command) {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+    }
 }
