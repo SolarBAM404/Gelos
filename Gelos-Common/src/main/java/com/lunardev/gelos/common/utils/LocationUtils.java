@@ -28,13 +28,45 @@ public class LocationUtils {
 
         String[] split = string.split(",");
 
+        String worldName = null;
+        String x = null;
+        String y = null;
+        String z = null;
+        String yaw = null;
+        String pitch = null;
+
+        if (split.length < 4) {
+            String[] strings = string.split("\"");
+            String[] pos;
+            if (string.contains("\"")) {
+                worldName = strings[1];
+                pos = strings[2].split(" ");
+            } else {
+                pos = strings[0].split(" ");
+                worldName = pos[0];
+            }
+            x = pos[1];
+            y = pos[2];
+            z = pos[3];
+            yaw = pos.length == 6 ? pos[4] : "0";
+            pitch = pos.length == 6 ? pos[5] : "0";
+
+        } else {
+            worldName = split[0];
+            x = split[1];
+            y = split[2];
+            z = split[3];
+            yaw = split.length == 6 ? split[4] : "0";
+            pitch = split.length == 6 ? split[5] : "0";
+        }
+
         return new Location(
-                LocationUtils.getWorld(split[0]),
-                Double.parseDouble(split[1]),
-                Double.parseDouble(split[2]),
-                Double.parseDouble(split[3]),
-                split.length == 6 ? Float.parseFloat(split[4]) : 0,
-                split.length == 6 ? Float.parseFloat(split[5]) : 0
+                LocationUtils.getWorld(worldName),
+                Double.parseDouble(x),
+                Double.parseDouble(y),
+                Double.parseDouble(z),
+                split.length == 6 ? Float.parseFloat(yaw) : 0,
+                split.length == 6 ? Float.parseFloat(pitch) : 0
         );
     }
 
