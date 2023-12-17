@@ -2,6 +2,7 @@ package com.lunardev.gelos.gelosgames.managers;
 
 import com.lunardev.gelos.gelosgames.events.*;
 import com.lunardev.gelos.gelosgames.timers.GameEndTimer;
+import com.lunardev.gelos.gelosgames.timers.GameLobbyTimer;
 import com.lunardev.gelos.gelosgames.timers.GameStartTimer;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -30,6 +31,8 @@ public class GameManager implements Listener {
     private String bypassPermission = "games.join.bypass";
 
     @Setter
+    private int lobbyTimer = 60;
+    @Setter
     private int startTimer = 30;
     @Setter
     private int gameTimer = 60 * 5;
@@ -53,13 +56,13 @@ public class GameManager implements Listener {
 
     public void startTimer() {
         new GameStartTimerEvent(this).callEvent();
-        new GameStartTimer(plugin, this, startTimer).startTimer();
+        new GameStartTimer(plugin, this, lobbyTimer).startTimer();
         state = GameState.START_TIMER;
     }
 
-    @EventHandler
-    public void onGameStartTimer(GameStartTimerEvent event) {
-        startTimer();
+    public void lobbyTimer() {
+        new GameLobbyTimerEvent(this).callEvent();
+        new GameLobbyTimer(plugin, this, lobbyTimer).startTimer();
     }
 
     @EventHandler
@@ -70,6 +73,7 @@ public class GameManager implements Listener {
     @EventHandler
     public void onGameEnd(GameEndEvent event) {
         new GameEndTimer(plugin, this, endTimer).startTimer();
+        new GameEndTimerEvent(this).callEvent();
         state = GameState.ENDED;
         playerManager.clearPlayers();
     }
@@ -93,7 +97,7 @@ public class GameManager implements Listener {
     public void onPlayerJoinGame(PlayerJoinedGameEvent event) {
         if (state == GameState.WAITING) {
             if (playerManager.getPlayers().size() >= minPlayers) {
-                new GameStartTimerEvent(this).callEvent();
+                lobbyTimer();
             }
         }
     }
@@ -102,7 +106,7 @@ public class GameManager implements Listener {
     public void onPlayerLeftGame(PlayerLeftGameEvent event) {
         if (state == GameState.WAITING) {
             if (playerManager.getPlayers().size() < minPlayers) {
-                new GameStartTimerCancelEvent(this).callEvent();
+                new GameLobbyTimerCancelEvent(this).callEvent();
             }
         }
     }
